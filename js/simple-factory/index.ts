@@ -1,7 +1,7 @@
 // 简单工厂模式
 class Calculate{
   @verityNumber
-  exec(){
+  calc(){
     return (this as any).getResult()
   }
 }
@@ -51,11 +51,37 @@ class CalcDivision extends Calculate{
   }
 }
 
+class CalcOperator {
+  operator:String = ""
+  createOperator(operator:String){
+    this.operator = operator
+    let exec:Calculate | null = null
+    switch(this.operator){
+      case '+':
+        exec = new CalcAddition()
+        break;
+      case '-':
+        exec = new CalcSubtraction()
+        break;
+      case '*':
+        exec = new CalcMultiplication()
+        break;
+      case '/':
+        exec = new CalcDivision()
+        break;
+      default:
+        console.log('错误的操作符')
+        return null
+    }
+    return exec
+  }
+}
 function main(){
-  let item:any = new CalcDivision()
+  let operator:any = new CalcOperator()
+  let item:any = operator.createOperator("/")
   item.numberA = 1
   item.numberB = 2
-  console.log(item.exec())
+  console.log(item.calc())
 }
 
 main()
