@@ -25,7 +25,7 @@ class PayCommon extends PayContext{
 
 class PayDiscount extends PayContext{
   multiple:number = 0
-  constructor(multiple:number){
+  constructor([multiple]:[number]){
     super()
     this.multiple = multiple
   }
@@ -37,7 +37,7 @@ class PayDiscount extends PayContext{
 class PayFullReduction extends PayContext{
   count:number= 0
   remain:number= 0
-  constructor(count:number,remain:number){
+  constructor([count,remain]:[number,number]){
     super()
     this.count = count
     this.remain = remain
@@ -50,16 +50,18 @@ class PayFullReduction extends PayContext{
 type PayDescriptor = PayCommon | PayDiscount | PayFullReduction | null
 class PayFactory{
   sales:PayDescriptor = null
-  constructor(type:number){
+  constructor(...args:any){
+    let type = args[0],
+    params = args.slice(1)
     switch(type){
       case 0:
         this.sales = new PayCommon()
         break;
       case 1: 
-        this.sales = new PayDiscount(0.8)
+        this.sales = new PayDiscount(params)
         break;
       case 2:
-        this.sales = new PayFullReduction(300,100)
+        this.sales = new PayFullReduction(params)
     }
   }
   getResult(money:number){
@@ -71,9 +73,9 @@ function main(){
   let payMoney:number = 3000
   let money1:PayFactory = new PayFactory(0)
   console.log(money1.getResult(payMoney))
-  let money2:PayFactory = new PayFactory(1)
+  let money2:PayFactory = new PayFactory(1,0.8)
   console.log(money2.getResult(payMoney))
-  let money3:PayFactory = new PayFactory(2)
+  let money3:PayFactory = new PayFactory(2,300,100)
   console.log(money3.getResult(payMoney))
 }
 
