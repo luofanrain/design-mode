@@ -3,8 +3,9 @@
 class PayContext{
   @verityMoney
   getAmount(money:number){
-    return (this as any).getResult(money)
+    return this.getResult(money)
   }
+  getResult(money:number){}
 }
 function verityMoney(target:any,name:string,descriptor:any){
   let oldTarget = descriptor.value

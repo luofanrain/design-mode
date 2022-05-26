@@ -1,10 +1,13 @@
 // 开放封闭原则  原理在于  封闭修改，开放扩展，由于之前写简单工厂模式已包含此特性，我直接copy过来了
 
 class Calculate{
+  numberA:number
+  numberB:number
   @verityNumber
   calc(){
-    return (this as any).getResult()
+    return this.getResult()
   }
+  getResult(){}
 }
 
 function supplement(){
@@ -29,33 +32,33 @@ function verityNumber(target:any,name:String,descriptor:any){
 @supplement()
 class CalcAddition extends Calculate{
   getResult(){
-    return (this as any).numberA + (this as any).numberB
+    return this.numberA + this.numberB
   }
 }
 @supplement()
 class CalcSubtraction extends Calculate{
   getResult(){
-    return (this as any).numberA - (this as any).numberB
+    return this.numberA - this.numberB
   }
 }
 @supplement()
 class CalcMultiplication extends Calculate{
   getResult(){
-    return (this as any).numberA * (this as any).numberB
+    return this.numberA * this.numberB
   }
 }
 @supplement()
 class CalcDivision extends Calculate{
   getResult(){
-    if((this as any).numberB == 0) return '除数不能为0'
-    return (this as any).numberA / (this as any).numberB
+    if(this.numberB == 0) return '除数不能为0'
+    return this.numberA / this.numberB
   }
 }
 @supplement()
 class CalcFactorial extends Calculate{
   getResult(){
-    if((this as any).numberA == 0) return (this as any).numberA
-    return Math.pow((this as any).numberA,(this as any).numberB)
+    if(this.numberA == 0) return this.numberA
+    return Math.pow(this.numberA,this.numberB)
   }
 }
 

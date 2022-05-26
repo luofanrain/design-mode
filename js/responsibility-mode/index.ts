@@ -4,19 +4,22 @@ type LeaderItem = Leader | null
 
 @bindleader()
 class Leader{
+    leader:Leader
     childrens:LeaderChildren = []
+    doSomething:Array<string>
+    name:string
     bind(child:Leader){
-        (this as any).leader = child
+        this.leader = child
     }
     askReponsebility(thing:string){
-        if((this as any).doSomething.includes(thing)){
-            console.log(`这是${(this as any).name}做的`)
+        if(this.doSomething.includes(thing)){
+            console.log(`这是${this.name}做的`)
         }else{
-            if(!(this as any).leader){
-                console.log(`公司里${(this as any).name}最大,这件事都做不了${thing}`)
+            if(!this.leader){
+                console.log(`公司里${this.name}最大,这件事都做不了${thing}`)
                 return
             }
-            (this as any).leader.askReponsebility(thing)
+            this.leader.askReponsebility(thing)
         }
     }
 }
