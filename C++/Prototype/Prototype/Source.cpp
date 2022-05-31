@@ -16,9 +16,9 @@ int main(int argc, char** argv)
 
 		prototype_factory->Register("ConcretePrototype1", concrete_prototype1_1);
 		prototype_factory->Register("ConcretePrototype2", concrete_prototype2_1);
-		ConcretePrototype1* concrete_prototype1_2 = dynamic_cast<ConcretePrototype1*>(concrete_prototype1_1->Clone());
+		ConcretePrototype1* concrete_prototype1_2 = dynamic_cast<ConcretePrototype1*>(prototype_factory->CreatePrototype(("ConcretePrototype1")));
 		std::cout << concrete_prototype1_2->GetField() << std::endl;
-		ConcretePrototype2* concrete_prototype2_2 = dynamic_cast<ConcretePrototype2*>(concrete_prototype2_1->Clone());
+		ConcretePrototype2* concrete_prototype2_2 = dynamic_cast<ConcretePrototype2*>(prototype_factory->CreatePrototype(("ConcretePrototype2")));
 		std::cout << concrete_prototype2_2->GetField() << std::endl;
 
 		delete concrete_prototype2_2;
