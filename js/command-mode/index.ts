@@ -2,12 +2,35 @@
 
 abstract class Command {
   name:string
+  exec(){}
+  execEvent(){}
 }
 
 class BaseCommand extends Command{
-  constructor(name:string){
-    super()
-    this.name = name
+  name:string = "普通事件"
+  exec(){
+    console.log(`正在执行${this.name}功能`)
+  }
+}
+
+class PhaseCommand extends Command{
+  name:string = "粘贴"
+  exec(){
+    console.log(`正在执行${this.name}功能`)
+  }
+}
+
+class CopyCommand extends Command{
+  name:string = "复制"
+  exec(){
+    console.log(`正在执行${this.name}功能`)
+  }
+}
+
+class CutCommand extends Command{
+  name:string = "剪切"
+  exec(){
+    console.log(`正在执行${this.name}功能`)
   }
 }
 
@@ -31,21 +54,23 @@ class Computer{
   }
   exec(){
     this.events.forEach((command:Command)=>{
-      console.log(`${command.name}命令已执行`)
+      command.exec()
     })
   }
 }
 
 function main(){
   let computer = new Computer()
-  let command1 = new BaseCommand("copy")
-  let command2 = new BaseCommand("paste")
-  let command3 = new BaseCommand("cut")
-  let command4 = new BaseCommand("paste")
+  let command1 = new CopyCommand()
+  let command2 = new PhaseCommand()
+  let command3 = new CutCommand()
+  let command4 = new PhaseCommand()
+  let command5 = new BaseCommand()
   computer.addEvents(command1)
   computer.addEvents(command2)
   computer.addEvents(command3)
   computer.addEvents(command4)
+  computer.addEvents(command5)
   computer.removeEvents(command2)
 
   computer.exec()
