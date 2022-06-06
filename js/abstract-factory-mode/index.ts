@@ -9,12 +9,14 @@ abstract class Table{
 
 abstract class Database {
   tableList:TableList = []
+  loadTable(tableName:string){}
+}
+class BaseDatabase extends Database{
   loadTable(tableName:string){
     return new (this.tableList[tableName])();
   }
 }
-
-class SqlServerDB extends Database {
+class SqlServerDB extends BaseDatabase {
   tableList:TableList = {User:SqlServerUser,Department:SqlServerDepartment}
   constructor(){
     super()
@@ -24,7 +26,7 @@ class SqlServerDB extends Database {
 interface TableList {
   [key:string]:any
 }
-class MysqlDb extends Database {
+class MysqlDb extends BaseDatabase {
   tableList:TableList = {User:MysqlUser,Department:MysqlDepartment}
   constructor(){
     super()

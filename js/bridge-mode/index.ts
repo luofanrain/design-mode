@@ -1,5 +1,5 @@
 // 桥接模式  将抽象部分与他的实现部分分离，使他们都可以独立的变化
-
+// 合成聚用原则  尽量使用合成聚合，尽量不要使用类继承
 interface SoftWareList{
   [key:string]: SoftWare
 }

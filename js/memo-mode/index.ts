@@ -61,6 +61,14 @@ function main(){
   role.display()
   role.restore(memo.getRole(role))
   role.display()
+  
+  let role1 = new GameRole(98,98,98)
+  role1.display()
+  memo.saveRole(role1)
+  role1.fight()
+  role1.display()
+  role1.restore(memo.getRole(role1))
+  role1.display()
 }
 
 main()
